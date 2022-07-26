@@ -1,0 +1,5 @@
+mysql==8.0.29
+pandas==1.2.5
+configparser==5.2.0
+pytest==7.1.2
+python3==3.9.7
