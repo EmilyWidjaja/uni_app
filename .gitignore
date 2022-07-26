@@ -1,2 +1,5 @@
 configurations.ini
 config_file.py
+__pycache__
+__init__.py
+.vscode

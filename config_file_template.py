@@ -13,10 +13,11 @@ config_file.add_section("SQLServerSettings")
 config_file.set("SQLServerSettings", "host_name", "localhost")
 config_file.set("SQLServerSettings", "user_name", "root")
 config_file.set("SQLServerSettings", "user_password", "pw")
+config_file.set("SQLServerSettings", "connection_path", "/Users/Documents/")
 
 
 """
-config_file["Logger"]={
+config_file["Global"]={
         "LogFilePath":"<Path to log file>",
         "LogFileName" : "<Name of log file>",
         "LogLevel" : "Info"
