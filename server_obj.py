@@ -33,15 +33,15 @@ class ServerObj:
         cursor = self.connection.cursor() #Creates cursor object
         try:
             cursor.execute(query)   #Executes query in the server via connection 
-            print("Database created successfully")
+            print("Database edited successfully")
         except Error as err:
             print(f"Error: '{err}'")
         return
     
-    def execute_query(self, connection, query):
+    def execute_query(self, connection, query, params=None):
         cursor = connection.cursor()
         try:
-            cursor.execute(query)
+            cursor.execute(query, params)
             connection.commit() #Makes sure commands are implemented
             print("Query successful")
         except Error as err:
