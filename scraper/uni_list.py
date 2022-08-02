@@ -29,6 +29,7 @@ for d in ranks['data']:
     
 for uni in unis:
     print(uni)
+
 s = ServerObj()
 
 #Check for existing uni database
@@ -55,9 +56,6 @@ else:
     # for uni in unis:
     #     s.execute_query(s.db_connection, pop_top10, uni)
 
-    s.execute_query(s.db_connection, "DELETE FROM UniData WHERE id=4;")
     print(s.read_query(s.db_connection, "SELECT * FROM UniData;"))
 
-    #Do whatever updates you'd like to do here
-
-#       rank INT)
+    # Do whatever updates you'd like to do here
