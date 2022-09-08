@@ -2,6 +2,9 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 import configparser
+import string
+from difflib import SequenceMatcher
+import numpy as np
 
 class ServerObj:
     def __init__(self):
@@ -71,6 +74,36 @@ class ServerObj:
             return result
         except Error as err:
             print(f"Error: '{err}'")
+    
+    def clean_string(self, s):
+        return s.translate(str.maketrans('', '', string.punctuation)).lower()
+
+    def get_most_similar(self, s1, ls2):
+        #Returns most similar term in ls2 to s1 when all strings in list of strings 2 and string1 have been pre-processed
+        if s1 in ls2:
+            return s1
+        
+        else:
+            sims = []
+            for s2 in ls2:
+                similarity = SequenceMatcher(None, s1, s2).ratio()
+                sims.append(similarity)
+
+            if max(sims) >= 0.89:
+                #Find all indexes of max, if multiple options are equally similar, 
+                # we either have a duplicate entry or the term is not in the list, so we raise an error
+                sims_list = np.asarray(sims)
+                index_max = np.flatnonzero(sims_list == np.max(sims_list))
+                if len(index_max) > 1:
+                    print(f"Multiple matches found for {s1}: ")
+                    print(f"{ls2[i]}" + " " for i in index_max)
+                    return False
+                else:
+                    return ls2[index_max[0]]
+            else:
+                print(f"No similar item found in list for {s1}. Max similarity = {max(sims)}, {ls2[np.argmax(sims)]}")
+                return False
+
 
 # serverObj = ServerObj()
 # print(serverObj.read_query(serverObj.connection, "SHOW DATABASES"))
